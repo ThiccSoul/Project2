@@ -1,6 +1,7 @@
 package ge.tbc.testautomation.swoop.steps;
 
 import com.codeborne.selenide.Selenide;
+import ge.tbc.testautomation.configuration.TestConfig;
 import ge.tbc.testautomation.swoop.pages.SearchResultsPage;
 import io.qameta.allure.Step;
 import org.testng.Assert;
@@ -14,25 +15,23 @@ import static com.codeborne.selenide.Condition.*;
 import static ge.tbc.testautomation.data.Constants.*;
 import static ge.tbc.testautomation.utilFunctions.Helpers.*;
 
-public class SearchResultsSteps {
+public class SearchResultsSteps extends TestConfig {
     SearchResultsPage searchResultsPage = new SearchResultsPage();
     List<String> cardOffers = new ArrayList<>();
 
     @Step("Assert that the search result matches the term '{searchTerm}'")
-    public SearchResultsSteps searchAssert(String searchTerm) {
+    public void searchAssert(String searchTerm) {
         searchResultsPage.categoryTitle.shouldBe(visible);
         searchResultsPage.categoryTitle.shouldHave(text(searchTerm));
-        return this;
     }
 
     @Step("Validate search error message visibility")
-    public SearchResultsSteps notFoundAssert(Boolean errMsgExist) {
+    public void notFoundAssert(Boolean errMsgExist) {
         if (errMsgExist) {
             searchResultsPage.searchErrorMsg.shouldHave(text(searchErrText));
         } else {
             searchResultsPage.searchErrorMsg.shouldNotBe(visible);
         }
-        return this;
     }
 
     @Step("Verify if category card exists")
@@ -59,9 +58,8 @@ public class SearchResultsSteps {
     }
 
     @Step("Assert that all card titles are unique")
-    public SearchResultsSteps assertThatCardTitlesAreUnique() {
+    public void assertThatCardTitlesAreUnique() {
         Assert.assertTrue(isUniqueTextList(cardOffers));
-        return this;
     }
 
     @Step("Click on the fifth page button")
@@ -111,9 +109,8 @@ public class SearchResultsSteps {
     }
 
     @Step("Filter search results by number of guests")
-    public SearchResultsSteps filterGuests() {
+    public void filterGuests() {
         searchResultsPage.numberOfGuestsFilter.click();
-        return this;
     }
 
     @Step("Extract and save guest amount from card titles")
@@ -147,31 +144,7 @@ public class SearchResultsSteps {
     @Step("Validate the guest filter with bounds '{lowerBound}' to '{upperBounnd}'")
     public void validateFilter(List<String> filteredOffersByGuest, String lowerBound, String upperBounnd) {
         List<String> filteredAndValidatedOffers = extractOffersInRange(filteredOffersByGuest, Integer.parseInt(lowerBound), Integer.parseInt(upperBounnd));
-        Assert.assertEquals(filteredAndValidatedOffers.size(), filteredOffersByGuest.size());
+        softAssert.assertEquals(filteredAndValidatedOffers.size(), filteredOffersByGuest.size());
     }
 
-    @Step("Validate that text is in English")
-    public SearchResultsSteps validateTextIsInEnglish() {
-        searchResultsPage.labelsForLangCheck.filterBy(matchText(".*\\p{L}.*")).forEach(element -> {
-            String text = element.getText().trim();
-            boolean isEnglish = isTextInEnglish(text);
-            if (!isEnglish) {
-                throw new IllegalArgumentException(engLangErrText);
-            }
-        });
-        return this;
-    }
-
-
-    @Step("Validate that text is in Georgian")
-    public SearchResultsSteps validateTextIsInGeorgian() {
-        searchResultsPage.labelsForLangCheck.filterBy(matchText(".*\\p{L}.*")).forEach(element -> {
-            String text = element.getText().trim();
-            boolean isGeorgian = isTextInGeorgian(text);
-            if (!isGeorgian) {
-                throw new IllegalArgumentException(geoLangErrText);
-            }
-        });
-        return this;
-    }
 }
