@@ -13,6 +13,6 @@ public class LoginPage {
             loginErrElement = $x("//h3[contains(text(), 'Epic sadface')]"),
             loginErrElXButton = $x("//h3[contains(text(), 'Epic sadface')]/Button");
 
-    // this is for Conflict15
+    // this is for Conflict
 
 }

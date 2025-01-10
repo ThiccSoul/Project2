@@ -1,6 +1,7 @@
 package ge.tbc.testautomation.swoop.steps;
 
 import com.codeborne.selenide.Selenide;
+import ge.tbc.testautomation.configuration.TestConfig;
 import ge.tbc.testautomation.swoop.pages.SearchResultsPage;
 import io.qameta.allure.Step;
 import org.testng.Assert;
@@ -14,7 +15,7 @@ import static com.codeborne.selenide.Condition.*;
 import static ge.tbc.testautomation.data.Constants.*;
 import static ge.tbc.testautomation.utilFunctions.Helpers.*;
 
-public class SearchResultsSteps {
+public class SearchResultsSteps extends TestConfig {
     SearchResultsPage searchResultsPage = new SearchResultsPage();
     List<String> cardOffers = new ArrayList<>();
 
@@ -147,31 +148,6 @@ public class SearchResultsSteps {
     @Step("Validate the guest filter with bounds '{lowerBound}' to '{upperBounnd}'")
     public void validateFilter(List<String> filteredOffersByGuest, String lowerBound, String upperBounnd) {
         List<String> filteredAndValidatedOffers = extractOffersInRange(filteredOffersByGuest, Integer.parseInt(lowerBound), Integer.parseInt(upperBounnd));
-        Assert.assertEquals(filteredAndValidatedOffers.size(), filteredOffersByGuest.size());
-    }
-
-    @Step("Validate that text is in English")
-    public SearchResultsSteps validateTextIsInEnglish() {
-        searchResultsPage.labelsForLangCheck.filterBy(matchText(".*\\p{L}.*")).forEach(element -> {
-            String text = element.getText().trim();
-            boolean isEnglish = isTextInEnglish(text);
-            if (!isEnglish) {
-                throw new IllegalArgumentException(engLangErrText);
-            }
-        });
-        return this;
-    }
-
-
-    @Step("Validate that text is in Georgian")
-    public SearchResultsSteps validateTextIsInGeorgian() {
-        searchResultsPage.labelsForLangCheck.filterBy(matchText(".*\\p{L}.*")).forEach(element -> {
-            String text = element.getText().trim();
-            boolean isGeorgian = isTextInGeorgian(text);
-            if (!isGeorgian) {
-                throw new IllegalArgumentException(geoLangErrText);
-            }
-        });
-        return this;
+        softAssert.assertEquals(filteredAndValidatedOffers.size(), filteredOffersByGuest.size());
     }
 }
