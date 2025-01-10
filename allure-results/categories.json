@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Critical Issues",
+    "matchedStatuses": ["failed"],
+    "description": "These tests failed due to critical issues."
+  },
+  {
+    "name": "Minor Issues",
+    "matchedStatuses": ["broken"],
+    "description": "These tests broke due to minor issues or unexpected behavior."
+  },
+  {
+    "name": "Skipped Tests",
+    "matchedStatuses": ["skipped"],
+    "description": "These tests were skipped, requiring attention to dependencies or preconditions."
+  },
+  {
+    "name": "Tests with Specific Exception",
+    "traceRegex": ".*NullPointerException.*",
+    "description": "Tests failed with NullPointerException in the stack trace."
+  }
+]
