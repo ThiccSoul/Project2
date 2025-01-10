@@ -93,7 +93,6 @@ public class LoginSteps {
     @Step("Validate that the username field is empty")
     public LoginSteps validateEmptinessOfLoginField() {
         Assert.assertTrue(Objects.requireNonNull(loginPage.userNameField.getValue()).isEmpty());
-        Assert.fail("test force failed");
 
         return this;
     }
