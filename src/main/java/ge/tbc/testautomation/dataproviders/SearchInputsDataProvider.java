@@ -13,7 +13,4 @@ public class SearchInputsDataProvider {
         };
     }
 
-
-    // this is for Conflict
-
 }
