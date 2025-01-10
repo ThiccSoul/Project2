@@ -12,5 +12,4 @@ public class Constants {
             standardUserSQL = "SELECT username, password FROM Users WHERE username = 'standard_user'",
             lockedUserSQL = "SELECT username, password FROM Users WHERE username = 'locked_out_user'";
 
-    // this is for Conflict123
 }

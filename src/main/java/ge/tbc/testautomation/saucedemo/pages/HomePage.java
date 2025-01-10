@@ -14,6 +14,4 @@ public class HomePage {
     public ElementsCollection
             imgElements = $(".inventory_list").$$x(".//img");
 
-
-    // this is for Conflict123
 }
