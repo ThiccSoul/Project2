@@ -15,5 +15,5 @@ public class HomePage {
             imgElements = $(".inventory_list").$$x(".//img");
 
 
-    // this is for Conflict15
+    // this is for Conflict123
 }
