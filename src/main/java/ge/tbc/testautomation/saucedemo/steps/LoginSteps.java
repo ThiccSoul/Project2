@@ -1,9 +1,9 @@
 package ge.tbc.testautomation.saucedemo.steps;
 
+import ge.tbc.testautomation.configuration.TestConfig;
 import ge.tbc.testautomation.databaseconnection.DatabaseSteps;
 import ge.tbc.testautomation.saucedemo.pages.LoginPage;
 import io.qameta.allure.Step;
-import org.testng.Assert;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,8 +11,9 @@ import java.util.Objects;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
+import static ge.tbc.testautomation.data.Constants.*;
 
-public class LoginSteps {
+public class LoginSteps extends TestConfig {
     LoginPage loginPage = new LoginPage();
     DatabaseSteps databaseSteps = new DatabaseSteps();
 
@@ -20,8 +21,8 @@ public class LoginSteps {
     public String[] fetchCredentialsForStandard() {
         try (ResultSet rs = databaseSteps.getStandardUser()) {
             if (rs.next()) {
-                String username = rs.getString("username");
-                String password = rs.getString("password");
+                String username = rs.getString(usernameColumn);
+                String password = rs.getString(passwordColumn);
                 return new String[]{username, password};
             } else {
                 throw new RuntimeException("No credentials found for standard_user");
@@ -35,8 +36,8 @@ public class LoginSteps {
     public String[] fetchCredentialsForLocked() {
         try (ResultSet rs = databaseSteps.getLockedUser()) {
             if (rs.next()) {
-                String username = rs.getString("username");
-                String password = rs.getString("password");
+                String username = rs.getString(usernameColumn);
+                String password = rs.getString(passwordColumn);
                 return new String[]{username, password};
             } else {
                 throw new RuntimeException("No credentials found for locked_user");
@@ -79,7 +80,7 @@ public class LoginSteps {
 
     @Step("Validate the error message for locked user")
     public LoginSteps validateErrMessage() {
-        loginPage.loginErrElement.shouldHave(text("Epic sadface: Sorry, this user has been locked out."));
+        loginPage.loginErrElement.shouldHave(text(errLoginMsg));
 
         return this;
     }
@@ -92,14 +93,14 @@ public class LoginSteps {
 
     @Step("Validate that the username field is empty")
     public LoginSteps validateEmptinessOfLoginField() {
-        Assert.assertTrue(Objects.requireNonNull(loginPage.userNameField.getValue()).isEmpty());
+        softAssert.assertTrue(Objects.requireNonNull(loginPage.userNameField.getValue()).isEmpty());
 
         return this;
     }
 
     @Step("Validate that the password field is empty")
     public void validateEmptinessOfPasswordField() {
-        Assert.assertTrue(Objects.requireNonNull(loginPage.passwordField.getValue()).isEmpty());
+        softAssert.assertTrue(Objects.requireNonNull(loginPage.passwordField.getValue()).isEmpty());
 
     }
 }

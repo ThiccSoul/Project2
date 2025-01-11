@@ -22,32 +22,27 @@ public class Helpers {
         List<String> validPrices = new ArrayList<>();
 
         for (String element : input) {
-            element = element.trim(); // Clean up spaces
+            element = element.trim();
 
-            // Regex to match single numbers or ranges (e.g., "10 12" or "7 8")
             Pattern pattern = Pattern.compile("(\\d+)(\\s\\d+)?");
             Matcher matcher = pattern.matcher(element);
 
             if (matcher.matches()) {
-                // If it's a range (e.g., "10 12" or "10 2"), split it
                 if (element.contains(" ")) {
                     String[] rangeParts = element.split("\\s");
                     int start = Integer.parseInt(rangeParts[0]);
                     int end = Integer.parseInt(rangeParts[1]);
 
-                    // Sort the range boundaries if they are reversed (e.g., "10 2")
                     if (start > end) {
                         int temp = start;
                         start = end;
                         end = temp;
                     }
 
-                    // Check if the range partially overlaps with the target range
                     if (rangeOverlaps(start, end, lowerBound, upperBound)) {
                         validPrices.add(element);
                     }
                 } else {
-                    // Single number case
                     int number = Integer.parseInt(element);
                     if (number >= lowerBound && number <= upperBound) {
                         validPrices.add(element);

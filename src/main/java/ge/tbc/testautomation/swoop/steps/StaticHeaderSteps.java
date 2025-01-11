@@ -6,6 +6,8 @@ import ge.tbc.testautomation.swoop.pages.StaticHeaderPage;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
 
+import static ge.tbc.testautomation.data.Constants.*;
+
 public class StaticHeaderSteps {
     StaticHeaderPage staticHeaderPage = new StaticHeaderPage();
 
@@ -56,12 +58,12 @@ public class StaticHeaderSteps {
 
     @Step("wait until language is set to english")
     public void waitUntillLangIsEng() {
-        Selenide.Wait().until(_ -> WebDriverRunner.url().contains("/en/"));
+        Selenide.Wait().until(_ -> WebDriverRunner.url().contains(langUrl));
     }
 
     @Step("wait until language is set to english")
     public void waitUntillLangIsGeo() {
-        Selenide.Wait().until(_ -> !WebDriverRunner.url().contains("/en/"));
+        Selenide.Wait().until(_ -> !WebDriverRunner.url().contains(langUrl));
     }
 
     @Step("Set language to Georgian")
@@ -74,7 +76,7 @@ public class StaticHeaderSteps {
     @Step("Set language to English")
     public StaticHeaderSteps setLangToEng() {
         staticHeaderPage.engLang.click();
-        Selenide.Wait().until(_ -> WebDriverRunner.url().contains("/en/"));
+
         return this;
     }
 }

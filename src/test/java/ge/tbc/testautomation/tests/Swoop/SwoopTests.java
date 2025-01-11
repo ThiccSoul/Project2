@@ -1,6 +1,4 @@
 package ge.tbc.testautomation.tests.Swoop;
-
-import com.codeborne.selenide.Selenide;
 import ge.tbc.testautomation.configuration.TestConfig;
 import ge.tbc.testautomation.dataproviders.SearchInputsDataProvider;
 import ge.tbc.testautomation.swoop.steps.HomeSteps;
@@ -65,8 +63,6 @@ public class SwoopTests extends TestConfig {
                 .goToTheNextPage()
                 .goToThePreviousPage()
                 .previousBtnAssert(firstTitlePrevious);
-
-        Selenide.sleep(5000);
     }
 
     @Test

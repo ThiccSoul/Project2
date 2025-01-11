@@ -1,5 +1,6 @@
 package ge.tbc.testautomation.swoop.steps;
 
+import ge.tbc.testautomation.configuration.TestConfig;
 import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
@@ -10,7 +11,7 @@ import java.util.List;
 
 import static ge.tbc.testautomation.data.Constants.*;
 
-public class SwoopApiSteps {
+public class SwoopApiSteps extends TestConfig {
 
     @Step("Send request to Swoop")
     public Response sendRequestToFetch(String filterTerm) {
@@ -32,8 +33,8 @@ public class SwoopApiSteps {
         List<String> offerIds = jsonPath.getList("offers.id");
 
         for (String id : offerIds) {
-            Assert.assertNotNull(id);
-            Assert.assertFalse(id.isEmpty());
+            softAssert.assertNotNull(id);
+            softAssert.assertFalse(id.isEmpty());
         }
     }
 }

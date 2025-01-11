@@ -6,6 +6,8 @@ import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
+import static ge.tbc.testautomation.data.Constants.*;
+
 @Epic("Api Test Suite")
 public class SwoopAPITests extends TestConfig {
     SwoopApiSteps swoopApiSteps = new SwoopApiSteps();
@@ -16,9 +18,9 @@ public class SwoopAPITests extends TestConfig {
     @Severity(SeverityLevel.CRITICAL)
     public void restTest() {
         Response response = swoopApiSteps
-                .sendRequestToFetch("კახეთი");
+                .sendRequestToFetch(apiKey1Value);
         swoopApiSteps
-                .validateResponseStatusCode(response, 200)
+                .validateResponseStatusCode(response, expectedStatusCode)
                 .validateOfferIdsNotNullOrEmpty(response);
     }
 }

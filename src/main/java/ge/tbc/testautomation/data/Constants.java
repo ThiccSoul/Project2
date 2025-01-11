@@ -10,7 +10,14 @@ public class Constants {
             engLangErrText = "Language is not English",
             geoLangErrText = "Language is not Georgian",
             standardUserSQL = "SELECT username, password FROM Users WHERE username = 'standard_user'",
-            lockedUserSQL = "SELECT username, password FROM Users WHERE username = 'locked_out_user'";
+            lockedUserSQL = "SELECT username, password FROM Users WHERE username = 'locked_out_user'",
+            apiKey1Value = "კახეთი",
+            langUrl = "/en/",
+            errLoginMsg = "Epic sadface: Sorry, this user has been locked out.",
+            usernameColumn = "username",
+            passwordColumn = "password";
 
+    public static final int
+            expectedStatusCode = 200;
     // this is for Conflict123
 }

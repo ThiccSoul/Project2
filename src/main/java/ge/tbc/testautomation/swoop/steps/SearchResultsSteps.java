@@ -1,6 +1,5 @@
 package ge.tbc.testautomation.swoop.steps;
 
-import com.codeborne.selenide.Selenide;
 import ge.tbc.testautomation.configuration.TestConfig;
 import ge.tbc.testautomation.swoop.pages.SearchResultsPage;
 import io.qameta.allure.Step;
@@ -64,7 +63,9 @@ public class SearchResultsSteps extends TestConfig {
 
     @Step("Click on the fifth page button")
     public SearchResultsSteps clickingOnFifthPageBtn() {
-        Selenide.sleep(1000);
+        searchResultsPage.pageBtns.forEach(el -> {
+            el.shouldBe(visible);
+        });
         searchResultsPage.pageBtns.get(searchResultsPage.pageBtns.size() - 2).click();
         return this;
     }
