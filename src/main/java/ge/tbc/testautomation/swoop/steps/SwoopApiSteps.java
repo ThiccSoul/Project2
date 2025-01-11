@@ -23,7 +23,7 @@ public class SwoopApiSteps extends TestConfig {
 
     @Step("Validate that the response status code is {code}")
     public SwoopApiSteps validateResponseStatusCode(Response response, int code) {
-        Assert.assertEquals(response.statusCode(), code);
+        softAssert.assertEquals(response.statusCode(), code);
         return this;
     }
 
