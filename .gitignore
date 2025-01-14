@@ -1,0 +1,10 @@
+target
+.idea
+*.iml
+/build
+/allure-results/*.png
+
+*.json
+
+!/allure-results/
+!/allure-results/categories.json

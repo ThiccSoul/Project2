@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="POM tests suite" parallel="tests" thread-count="2">
+
+    <listeners>
+        <listener class-name="ge.tbc.testautomation.listeners.ReportListener"/>
+        <listener class-name="ge.tbc.testautomation.listeners.ScreenshotListener"></listener>
+        <listener class-name="ge.tbc.testautomation.listeners.SuiteListener"></listener>
+        <listener class-name="ge.tbc.testautomation.listeners.TestListener"></listener>
+    </listeners>
+
+    <test name="Swoop tests">
+        <groups>
+            <run>
+                <include name="SwoopRegression"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="ge.tbc.testautomation.tests.Swoop.SwoopTests"></class>
+        </classes>
+    </test>
+
+    <test name="sauceDemo Tests">
+        <groups>
+            <run>
+                <include name="SauceDemoLogin"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="ge.tbc.testautomation.tests.SauceDemo.SauceDemoTests"></class>
+        </classes>
+    </test>
+</suite>
